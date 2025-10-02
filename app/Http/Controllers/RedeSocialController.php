@@ -29,7 +29,8 @@ class RedeSocialController extends Controller
     public function store(Request $request)
     {
         
-        dd($request->all());
+        // dd($request->all());
+        // agora o resto será salvar os dados nada db l12
     }
 
     /**
