@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class rede extends Model
+class Rede extends Model
 {
     //Model redes
 

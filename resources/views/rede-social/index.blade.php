@@ -307,7 +307,8 @@
                             <span>Saved reports</span> <a class="link-secondary" href="#"
                                 aria-label="Add a new report"> <svg class="bi" aria-hidden="true">
                                     <use xlink:href="#plus-circle"></use>
-                                </svg> </a> </h6>
+                                </svg> </a>
+                        </h6>
 
 
 
@@ -318,6 +319,12 @@
 
                 <h2>Redes Sociais</h2>
                 <div class="table-responsive small">
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
@@ -330,17 +337,19 @@
                         </thead>
                         <tbody>
 
-                            <tr>
+                            @foreach ($redes as $rede)
+                                <tr>
 
-                                <td>2</td>
-                                <td>Instagram</td>
-                                <td>www.instagram.com</td>
-                                <td class="text-end">
-                                    <button class="btn btn-danger">Excluir</button>
-                                    <button class="btn btn-warning">Editar</button>
-                                </td>
+                                    <td>{{ $rede->id }}</td>
+                                    <td>{{ $rede->nome }}</td>
+                                    <td>{{ $rede->link }}</td>
+                                    <td class="text-end">
+                                        <a href="{{ route('redes-sociais.edit', $rede->id) }}" class="btn btn-warning">Editar</a>
+                                        <a href="{{ route('redes-sociais.destroy', $rede->id) }}" class="btn btn-danger">Excluir</a>
+                                    </td>
 
-                            </tr>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

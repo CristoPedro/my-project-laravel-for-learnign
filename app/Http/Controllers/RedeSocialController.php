@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rede;
 use Illuminate\Http\Request;
 
 class RedeSocialController extends Controller
@@ -11,7 +12,9 @@ class RedeSocialController extends Controller
      */
     public function index()
     {
-        return view('rede-social.index');
+        $redes = Rede::all();
+
+        return view('rede-social.index', compact("redes"));
     }
 
     /**
@@ -28,9 +31,22 @@ class RedeSocialController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nome' => ['required', 'max:100'],
+            'link' => ['required', 'max:255'],
+        ]);
+
+        $rede = new Rede();
+
+        $rede->nome = $request->nome;
+        $rede->link = $request->link;
+
+        $nome = $request->nome;
+
+        $rede->save();
+
+        return redirect()->route('redes-sociais.index')->with("success", "Rede $nome  cadastrada com sucesso");
         
-        // dd($request->all());
-        // agora o resto será salvar os dados nada db l12
     }
 
     /**
