@@ -247,15 +247,16 @@
             </div>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         
-                <h2>Criar Redes Sociais</h2>
+                <h2>Atualizar Redes Sociais</h2>
                 <div class="col-md-12">
-                <form action="{{ route('redes-sociais.store') }}" method="post">
+                <form action="{{ route('redes-sociais.update',  $rede->id) }}" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
-                        <input type="text" name="nome" class="form-control mt-3" placeholder="Nome da rede : Facebook">
+                        <input type="text" name="nome" value="{{ old('nome', $rede->nome)  }}" class="form-control mt-3" placeholder="Nome da rede : Facebook">
                     </div>
                     <div class="form-group">
-                        <input type="url" name="link" class="form-control mt-3" placeholder="URL da rede : Facebook">
+                        <input type="url" name="link" value="{{ old('link', $rede->link ) }}" class="form-control mt-3" placeholder="URL da rede : Facebook">
                     </div>
                     <div class="form-group">
                        <button class="btn btn-success mt-5" type="submit">Salvar dados</button>

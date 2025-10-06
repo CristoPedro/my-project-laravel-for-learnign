@@ -31,6 +31,8 @@ class RedeSocialController extends Controller
      */
     public function store(Request $request)
     {
+
+        // salvar dos dados no banco de dados.
         $request->validate([
             'nome' => ['required', 'max:100'],
             'link' => ['required', 'max:255'],
@@ -62,7 +64,9 @@ class RedeSocialController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // redirecionar para editar no formulario
+        $rede = Rede::find($id);
+        return view('rede-social.edit', compact('rede'));
     }
 
     /**
@@ -70,7 +74,21 @@ class RedeSocialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Atualizações dos dados.
+        // dd($request->all());
+        $request->validate([
+            'nome' => ['required', 'max:100'],
+            'link' => ['required', 'max:255']
+
+        ]);
+
+        $rede = Rede::find($id);
+
+        $rede->nome = $request->nome;
+        $rede->link = $request->link;
+        $rede->save();
+
+        return redirect()->route('redes-sociais.index')->with('success', "Rede atualizada com sucesso.");
     }
 
     /**
@@ -78,6 +96,13 @@ class RedeSocialController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //destruir a rede
+
+        $rede = Rede::find($id);
+
+        dd($rede);
+
+        $rede->delete();
+        return redirect()->route('redes-sociais.index')->with('success', 'Rede eliminada com sucesso');
     }
 }
